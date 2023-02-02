@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LionApartmants</title>
+    <link href="~/Css/PrimaryCss.css" rel="stylesheet" />
+
+    @Scripts.Render("~/Scripts")
+    @Styles.Render("~/Content")
+    @Styles.Render("~/Css")
+    <style>
+        .dropdown {
+            background-color: #333;
+            color: white;
+            border: none;
+        }
+
+        a.action-link:hover {
+            color: rosybrown;
+        }
+        
+    </style>
+</head>
+<body>
+    <div>
+        <nav>
+            <ul>
+                <li class="navli-l ref slika">
+                    <a href="@Url.Action("Index", "Home")">
+                        <img src="~/Logo/image_25.png" title="logo" alt="no image" />
+                    </a>
+               
+                </li>
+                <li class="navli-l ref">@Html.ActionLink("Home", "Index", "Home", new { @class = "action-link" })</li>
+                <li class="navli-l ref">@Html.ActionLink("About", "About", "Home", new { @class = "action-link" })</li>
+               
+                <li >
+                    @Html.DropDownList("Language", new List<SelectListItem> {
+                        new SelectListItem { Text = "English", Value = "en-US" },
+                        new SelectListItem { Text = "Croatian", Value = "hr" }
+                            }, "Select Language", new {@class="dropdown", onchange = "languageChanged()" })
+                   
+                </li>
+                <li class="navli-l ref">@Html.ActionLink("LogIn/LogOut", "Check", "User", new { @class = "action-link" })</li>
+            </ul>
+        </nav>
+    </div>
+    <div class="container body-content my-container">
+        @RenderBody()
+        <hr />
+        <footer class="footer">
+            <strong>  &copy; @DateTime.Now.Year - LionApartment</strong>
+        </footer>
+    </div>
+
+    <script>
+        function languageChanged() {
+            var selectedValue = $("#Language").val();
+            $.ajax({
+                type: "POST",
+                url: '/Home/ChangeLanguage',
+                data: { language: selectedValue },
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

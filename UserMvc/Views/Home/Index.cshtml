@@ -1,0 +1,80 @@
+﻿@model IEnumerable<DAL.Model.Apartment>
+<style>
+    .card-container {
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+        z-index: -1;
+        position: relative;
+    }
+
+    .my-try {
+        display: flex;
+        justify-content: right;
+        margin: 0.5rem;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<figure class="text-center">
+    <blockquote class="blockquote fs-1">
+        <p>Apartments by Lion Real Estate Agency</p>
+    </blockquote>
+    <figcaption class="blockquote-footer fs-4">
+        Choose your own <cite title="Source Title">adventure.</cite>
+    </figcaption>
+</figure>
+
+@using (Html.BeginForm())
+{
+<div>
+    @Html.ActionLink("Sort by Price", "Index", new { sortOrder = ViewBag.PriceSortParm})
+    @Html.ActionLink("Sort by ID", "Index", new { sortOrder = ViewBag.IdSortParm })
+</div>
+<div class="card-container">
+
+    @foreach (var item in Model)
+
+{
+        @Html.Partial("_ApartmentPartial", item)
+}
+</div>
+<p>
+    <div class="my-try">
+        Find by city name: @Html.TextBox("SearchString", "", new { @class = "form-control mr-3" })
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+
+    <div class="my-try">
+        Find by rooms: @Html.TextBox("SearchRooms", "", new { @class = "form-control" })
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+    <div class="my-try">
+        Find by adults: @Html.TextBox("SearchAdults", "", new { @class = "form-control" })
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+    <div class="my-try">
+        Find by children: @Html.TextBox("SearchChildren", "", new { @class = "form-control" })
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+
+</p>
+}
+
+<script src="~/Scripts/jquery-3.6.3.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Home/GetListOfApartments",
+            success: function (data) {
+                // Use the returned data as the model for the view
+                @Model = data;
+            }
+        });
+    });
+</script>

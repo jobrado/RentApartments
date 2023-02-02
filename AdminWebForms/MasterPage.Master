@@ -1,0 +1,69 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="AdminWebForms.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link href="StyleSheet/NavBarStyle.css" rel="stylesheet" />
+    <link href="StyleSheet/StyleSheetCss.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <nav>
+                <ul>
+
+                    <li class="navli-l ref">
+                        <asp:ImageButton class="action-link" runat="server" ID="btnLogo" ImageUrl="~/Logo/image_25.png" AlternateText="No Image available" OnClick="btnLogo_Click" />
+                    </li>
+                    <li class="navli-l ref">
+                        <asp:HyperLink NavigateUrl="~/Default.aspx" Text="Home" runat="server" />
+                    </li>
+                    <li class="navli-l ref">
+                        <asp:HyperLink NavigateUrl="~/Tags.aspx" Text="Tags" runat="server" /></li>
+                    <li class="navli-l ref">
+                        <asp:HyperLink NavigateUrl="~/Users.aspx" Text="Users" runat="server" /></li>
+                    <li class="ulnav-r">
+                        <asp:LinkButton ID="SignOut" OnClick="SignOut_Click" Text="SignOut" runat="server" /></li>
+
+                </ul>
+            </nav>
+            <div class="container my-container">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+            <footer class="footer">
+
+                <strong>
+                    <asp:Label ID="lblDateTime" runat="server" />
+                    - Apartments by Lion &copy;</strong>
+            </footer>
+        </div>
+    </form>
+
+
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-3.6.3.slim.min.js"></script>
+    <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"> </script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+
+        $(document).ready(function () {
+            $(".btndelete").click(function () {
+                if (confirm("Are you sure?")) {
+
+                } else alert("Delete Action Canceled!");
+            });
+        });
+    </script>
+
+</body>
+</html>

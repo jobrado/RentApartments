@@ -1,0 +1,74 @@
+﻿@model DAL.ViewModel.UserVM
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LogInUser</title>
+</head>
+<body>
+    @Styles.Render("~/Content")
+    @Styles.Render("~/Css")
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center ">
+                <div class="form-horizontal col-lg-3 border align-items-center d-flex flex-column justify-content-center">
+
+                    <h4 class="text-center">LogIn</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.CheckBoxFor(model => model.RememberMe, new { htmlAttributes = new { @class = "form-control" } })
+
+                        @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col" })
+                        <div class="col">
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3 ">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Log in" class="btn btn-primary" />
+                        </div>
+                        <div class="mt-3">
+                            Not a member? @Html.ActionLink("Sign Up!", "RegistrateUser")
+                        </div>  
+                        <div class="mt-3">
+                            @Html.ActionLink("Continue", controllerName: "Home", actionName: "Index") without registration
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+
+    </div>
+    @Scripts.Render("~/Scripts")
+</body>
+</html>

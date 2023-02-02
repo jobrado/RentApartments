@@ -1,0 +1,19 @@
+﻿@model DAL.Model.Pictures
+
+<script src="~/Scripts/jquery-3.6.3.min.js"></script>
+
+<img id="myImage" src="~/Pictures/@Model.Path">
+
+<script>
+        
+    $.ajax({
+  type: "POST",
+  url: "/Home/Picture",
+  data: { path: "@Model.Path" },
+  success: function (result) {
+      $("#myImage").attr("src", result.Result);  },
+  error: function (error) {
+  }
+});
+
+</script>

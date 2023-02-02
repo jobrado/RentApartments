@@ -1,0 +1,164 @@
+﻿@model DAL.ViewModel.DetailsViewModel
+
+<style>
+    .wholepage {
+        display: flex;
+    }
+
+    .details {
+        flex: 1;
+        width: 20%;
+    }
+
+    .review {
+        margin-top: 150px;
+        margin-left: 150px;
+    }
+</style>
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="wholepage">
+    <div class="details">
+        <h2>Details</h2>
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.IDApartment)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.apartment.IDApartment)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.apartment.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.Price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.apartment.Price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.apartment.Address)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.CityId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.apartment.CityId.Name)
+
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.StatusId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.apartment.StatusId)
+
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.MaxAdults)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.apartment.MaxAdults)
+
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.MaxChildren)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.apartment.MaxChildren)
+
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.BeachDistance)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.apartment.BeachDistance)
+
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.TotalRooms)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.apartment.TotalRooms)
+
+            </dd>
+
+            <dt>
+
+            </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.Tag)
+            </dt>
+
+            @if (Model.apartment.Tag != null)
+            {
+                foreach (var tag in Model.apartment.Tag)
+                {
+                    <dd>
+                        @Html.DisplayFor(modelItem => tag.Name)
+                    </dd>
+                }
+            }
+            <dt>
+                @Html.DisplayNameFor(model => model.apartment.Pictures)
+
+            </dt>
+
+            @foreach (var pic in Model.apartment.Pictures)
+            {
+                
+                <dd>
+                   
+                    @Html.Partial("_Picture", pic)
+                </dd>
+
+            }
+
+
+        </dl>
+    </div>
+    <hr />
+    <div class="contact">
+        @if (Request.Cookies["user_username"] != null)
+        {
+            @Html.Partial("FillContactForm", Model)
+        }
+        else
+        {
+            @Html.Partial("FillContactFormForNonReg", Model)
+
+        }
+
+    </div>
+
+    <div class="review">
+        @if (Request.Cookies["user_username"] != null)
+        {
+            @Html.Partial("_Review", Model)
+        }
+
+
+    </div>
+</div>
+

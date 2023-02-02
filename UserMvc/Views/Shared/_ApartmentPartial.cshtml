@@ -1,0 +1,82 @@
+﻿@model DAL.Model.Apartment
+<style>
+    .btndetails {
+        z-index: 1000;
+        position: relative;
+    }
+</style>
+<div>
+
+    <div class=" m-3">
+        <div class="card " style="width: 18rem;">
+            @if (Model.Pictures != null && @Model.Pictures.Count > 0)
+            {
+                foreach (var item in @Model.Pictures)
+                {
+                    if (item.IsRepresentative == true)
+                    {
+                        @Html.Partial("_Picture", item)
+                    }
+
+
+                }
+            }
+
+            <div class="card-body">
+                <hr />
+                <h4 class="card-title  text-center">
+                    @Html.DisplayFor(model => model.Name)
+                </h4>
+                <hr />
+                <div class="card-body ">
+
+
+                    <p class="card-text g-col-6">
+                        <strong> @Html.DisplayNameFor(model => model.CityId)</strong>
+                        :
+                        @Html.DisplayFor(model1 => model1.CityId.Name)
+                    </p><p class="card-text g-col-6">
+
+                        <strong>   @Html.DisplayNameFor(model => model.Price)</strong>
+                        :
+                        @Html.DisplayFor(model => model.Price) €
+                    </p><p class="card-text g-col-6">
+
+                        <strong>   @Html.DisplayNameFor(model => model.MaxAdults)</strong>
+                        :
+                        @Html.DisplayFor(model => model.MaxAdults)
+                    </p><p class="card-text g-col-6">
+
+                        <strong>    @Html.DisplayNameFor(model => model.MaxChildren)</strong>
+                        :
+                        @Html.DisplayFor(model => model.MaxChildren)
+                    </p><p class="card-text">
+
+                        <strong>    @Html.DisplayNameFor(model => model.TotalRooms)</strong>
+                        :
+                        @Html.DisplayFor(model => model.TotalRooms)
+                    </p><p class="card-text">
+                        <strong>  @Html.DisplayNameFor(model => model.BeachDistance) </strong>
+                        :
+                        @Html.DisplayFor(model => model.BeachDistance) m
+                    </p>
+
+                    <h5 class="card-title">
+                        <strong>   @Html.DisplayNameFor(model => model.IDApartment)</strong>:
+                        @Html.DisplayFor(model => model.IDApartment)
+
+                    </h5>
+                    @if (Request.Cookies["user_username"] != null)
+                    {
+                        @Html.ActionLink("Details", "Details", "Home", new { id =  Model.IDApartment }, htmlAttributes: new { @class = "btn btn-primary mt-4 " })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Details1", "RegistratedUserDetails", "Home", new { id = Model.IDApartment }, htmlAttributes: new { @class = "btn btn-primary mt-4 btndetails" })
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

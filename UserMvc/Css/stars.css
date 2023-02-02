@@ -1,0 +1,17 @@
+﻿.rating {
+    font-size: 25px;
+}
+
+.rating .fa-star {
+     color: lightgray;
+     transition: all 0.3s ease-in-out;
+     cursor: pointer;
+    }
+
+.rating .fa-star:hover {
+     color: #ffcc00;
+}
+
+.rating .fa-star.checked {
+      color: #ffcc00;
+}

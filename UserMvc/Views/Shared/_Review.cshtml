@@ -1,0 +1,57 @@
+﻿@model DAL.ViewModel.DetailsViewModel
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+<script src="~/Scripts/jquery-3.6.3.min.js"></script>
+<link href="~/Css/stars.css" rel="stylesheet" />
+@Styles.Render("~/bundles/fontawesome")
+@Scripts.Render("~/Scripts")
+
+@{
+    var cookie = int.Parse(Request.Cookies["user_id"].Value);
+}
+<div class="form-group" id="rating-wrapper">
+    <div>
+        <h2>@Model.Stars.Question</h2>
+    </div>
+    <div id="review-text">
+        @Html.LabelFor(m => m.Review.Details, "Napisite recenziju, zatim kliknite na zvezdicu")
+        @Html.TextAreaFor(m => m.Review.Details, new { rows = 5, cols = 40, @class = "form-control" })
+        <label id="lblsucc"></label>
+    </div>
+    <div class="rating">
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+    </div>
+    </div>
+    <script>
+    $(document).ready(function () {
+        $('.rating .fa-star').click(function () {
+            var rating = $(this).index() + 1;
+            var apartmentid = window.location.pathname.split('/').pop();
+            var userid = @cookie;
+            var reviewText = $('#review-text textarea').val();
+            $.ajax({
+                url: '/Home/UpdateRating',
+                type: 'post',
+                data: {
+                    rating: rating,
+                    apartmentid: apartmentid,
+                    userId: userid,
+                    reviewText: reviewText
+                },
+                success: function (data) {
+                    if (data.success) {
+                        $('.rating .fa-star').removeClass('checked');
+                        for (var i = 0; i < rating; i++) {
+                            $('.rating .fa-star:eq(' + i + ')').addClass('checked');
+                        }
+                        $("#lblsucc").text("Hvala Vam na vasoj recenziji!");
+                    }
+                }
+            });
+        });
+    });
+
+    </script>
